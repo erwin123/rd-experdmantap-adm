@@ -209,6 +209,32 @@ class EmployeePage extends Component {
         return false;
     }
 
+    handleClickDelete(e) {
+        e.preventDefault();
+        let em = this.state.employee;
+        if (em.EmployeeName && em.EmployeeNPK && em.BranchCode && em.RolePlay) {
+            axios.delete(url + em.EmployeeCode, { headers: { 'x-access-token': localData.token } })
+                .then(response => {
+                    if (response.status === 200) {
+                        this.setState({ showAlert: true, alertMessage: "Karyawan berhasil dihapus" });
+                        this.reset();
+                        this.fetchData();
+                        return true;
+                    }
+                    this.setState({ showAlert: true, alertMessage: "Gagal hapus Karyawan!" });
+                    return false;
+                })
+                .catch(error => {
+                    console.log(error);
+                    if (error.response.status === 401)
+                        this.setState({ showAlert: true, alertMessage: "Gagal hapus Karyawan! Sesi telah habis, lakukan login ulang" });
+                    return false;
+                });
+        }
+        this.setState({ showAlert: true, alertMessage: "Mohon lengkapi semua kolom isian." });
+        return false;
+    }
+
     reset() {
         this.setState({
             ...this.state, employee: {
@@ -338,7 +364,7 @@ class EmployeePage extends Component {
                                         <Icon className={classes.rightIcon}>block</Icon>
                                         </Button>
                                         <Button variant="contained" size="medium" color="secondary"
-                                            className={classes.button} onClick={(e) => this.handleClickSave(e)}>
+                                            className={classes.button} onClick={(e) => this.handleClickDelete(e)}>
                                             HAPUS &nbsp;
                                         <Icon className={classes.rightIcon}>delete</Icon>
                                         </Button>

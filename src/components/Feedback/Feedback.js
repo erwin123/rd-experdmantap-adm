@@ -90,13 +90,20 @@ class FeedbackPage extends Component {
             Employee_EmployeeCode: propar.EmployeeCode,
             EmployeeName: propar.EmployeeName,
             EmployeeNPK: propar.EmployeeNPK,
-            EmployeeBranch: propar.BranchCode
+            EmployeeBranch: propar.BranchCode,
+            EmployeeBranchName: propar.BranchName
         };
+    }
+
+    fetchDataBranch() {
+        let urlBr = "https://api-experdserve.experd.com/api/trx/branch/";
+        localData = JSON.parse(localStorage.getItem('currentUser'));
+        return axios.get(urlBr, { headers: { 'x-access-token': localData.token } });
     }
 
     async fetchDataAll() {
         this.setState({ data: [] });
-        await axios.all([this.fetchDataProject(), this.fetchDataEmployee(), this.fetchDataProjectEmployee()])
+        await axios.all([this.fetchDataProject(), this.fetchDataEmployee(), this.fetchDataProjectEmployee(), this.fetchDataBranch()])
             .then(response => {
                 if (response[0].status === 200) {
                     this.setState({ dataProject: response[0].data });
@@ -106,9 +113,9 @@ class FeedbackPage extends Component {
                     this.setState({ dataEmployee: response[1].data.filter(i => i.RolePlay === 'RL001') });
                 }
                 if (response[2].status === 200) {
-                    const result = join.join(response[1].data,
+                    const result = join.join(response[3].data, join.join(response[1].data,
                         join.join(response[0].data, response[2].data,
-                            { key: 'ProjectCode' }), { key: 'EmployeeCode' });
+                            { key: 'ProjectCode' }), { key: 'EmployeeCode' }), { key: 'BranchCode' });
                     for (let i = 0; i < result.length; i++) {
                         this.setState({
                             data: [...this.state.data, this.createData(i, result[i])]

@@ -17,13 +17,17 @@ import BranchPage from './Branch/Branch';
 import RoleplayPage from './Role/Roleplay';
 import FeedbackPage from './Feedback/Feedback';
 import S1 from './Stepboard/s1';
+import S3 from './Stepboard/s3';
+import Staytune from './StayTune/Staytune';
+import StandartServicePage from './Standartservices/Stdservices';
+import AspekPage from './Standartservices/Aspek';
 
 class App extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      title:"Administrasi Serve"
+      title:""
     }
   }
 
@@ -49,7 +53,11 @@ class App extends Component {
           <PrivateRoute  exact path={routes.BRANCH} component={() => <BranchPage />} />
           <PrivateRoute  exact path={routes.ROLE} component={() => <RoleplayPage />} />
           <PrivateRoute  exact path={routes.FEEDBACK} component={() => <FeedbackPage />} />
-          <PrivateRoute  exact path={routes.S1} component={() => <S1 />} />    
+          <PrivateRoute  exact path={routes.S1} component={() => <S1 />} />  
+          <PrivateRoute  exact path={routes.S3} component={() => <S3 />} />    
+          <PrivateRoute  exact path={routes.STAYTUNE} component={() => <Staytune />} />    
+          <PrivateRoute  exact path={routes.STDSERVICE} component={() => <StandartServicePage />} />    
+          <PrivateRoute  exact path={routes.ASPEK} component={() => <AspekPage />} />    
         </div>
       </Router>
       </Provider>

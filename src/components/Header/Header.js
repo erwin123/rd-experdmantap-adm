@@ -35,8 +35,7 @@ const styles = {
         marginRight: 20,
     },
     list: {
-        width: 250,
-        marginTop: "50px"
+        width: 250
     },
     myLink: {
         textDecoration: "none"
@@ -50,11 +49,15 @@ const mapDispatchToProps = dispatch => {
 };
 
 let menu = [{ text: "Beranda", icon: "home", link: "/home", ic: true },
-{ text: "Cabang", icon: "assignment_ind", link: "/branch", ic: false },
-{ text: "Role", icon: "description", link: "/roleplay", ic: false },
+{ text: "Cabang", icon: "domain", link: "/branch", ic: false },
+{ text: "Role", icon: "accessibility_new", link: "/roleplay", ic: false },
 { text: "Project", icon: "description", link: "/project", ic: false },
 { text: "Acc & Employee", icon: "assignment_ind", link: "/employee", ic: false },
-{ text: "Feedback", icon: "hearing", link: "/feedback", ic: true }]
+{ text: "Standar Service", icon: "assignment_ind", link: "/stdservice", ic: false },
+{ text: "Aspek Fisik", icon: "assignment_ind", link: "/aspek", ic: false },
+{ text: "Feedback", icon: "hearing", link: "/feedback", ic: true },
+{ text: "Do's n Dont's", icon: "ballot", link: "/s3", ic: true },
+{ text: "Staytune", icon: "graphic_eq", link: "/staytune", ic: true }]
 
 
 
@@ -121,19 +124,21 @@ class Header extends Component {
 
         return (
             <div className={classes.root}>
-                <AppBar position="static">
+                <AppBar position="static" style={{background:'rgb(245,245,245, 0.7)', color:"#084F8F"}}>
                     <Toolbar>
                         {localData ? <IconButton onClick={(e) => this.toggleDrawer(true, e)} className={classes.menuButton} color="inherit" aria-label="Menu">
                             <MenuIcon />
                         </IconButton> : null}
-
-                        <Typography variant="title" color="inherit">
-                            {this.props.title}
+                        <img src={require('../../assets/logo.png')} height="33" width="100" alt=""/>
+                        <Typography variant="title" color="inherit" style={{right:"0",marginRight:"25px", position:"absolute"}}>
+                        &nbsp;{this.props.title}
                         </Typography>
                         <Drawer open={this.state.show} onClose={e => this.toggleDrawer(false)}>
-                            <div tabIndex={0} role="button"
+                            <div tabIndex={0} role="button" style={{color:"#084F8F"}}
                                 onClick={e => this.toggleDrawer(false)}
                                 onKeyDown={e => this.toggleDrawer(false)}>
+                                <img src={require('../../assets/logo.webp')} height="33" width="100" alt="" style={{marginLeft:"10px", marginTop:"10px"}}/>
+                                &nbsp; Administrative
                                 <div className={classes.list}>
                                     {this.renderMenu(classes)}
                                     <Divider />

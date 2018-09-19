@@ -29,7 +29,7 @@ const styles = theme => ({
 
 const columnData = [
     { id: 'ProjectName', numeric: false, disablePadding: false, label: 'Project' },
-    { id: 'EmployeeBranchName', numeric: false, disablePadding: false, label: 'Cabang' },
+    { id: 'BranchName', numeric: false, disablePadding: false, label: 'Kantor Cabang' },
     { id: 'EmployeeName', numeric: false, disablePadding: false, label: 'Nama' },
     { id: 'EmployeeNPK', numeric: false, disablePadding: false, label: 'Nomor Induk' },
 ];
@@ -40,14 +40,14 @@ function getSorting(order, orderBy) {
         : (a, b) => (a[orderBy] < b[orderBy] ? -1 : 1);
 }
 
-class TableProjParticipant extends Component {
+class Tablestaytune extends Component {
     constructor(props) {
         super(props);
         this.state = {
             page: 0,
             rowsPerPage: 10,
             order: 'asc',
-            orderBy: 'EmployeeName',
+            orderBy: 'id',
             keyWord:''
         }
     }
@@ -84,7 +84,7 @@ class TableProjParticipant extends Component {
         return (
             <Paper className={classes.root}>
             <br/>
-            <TextField label="Cari Nama/NIK/Cabang" onChange={(e) => this.handleChange(e)} style={{marginLeft:'20px'}}
+            <TextField label="Cari Nama/Nomor Induk/Cabang" onChange={(e) => this.handleChange(e)} style={{marginLeft:'20px', width:'300px'}}
             margin="normal" className={classes.textField} name="keyWord" value={keyWord} />
                 <div className={classes.tableWrapper}>
                     <Table className={classes.table}>
@@ -92,7 +92,8 @@ class TableProjParticipant extends Component {
                         <TableBody>
                             {data
                                 .sort(getSorting(order, orderBy))
-                                .filter(c => { return c.EmployeeName.toLowerCase().indexOf(keyWord) > -1 || c.EmployeeNPK.toLowerCase().indexOf(keyWord) > -1 || c.EmployeeBranchName.toLowerCase().indexOf(keyWord) > -1})
+                                .filter(c => { return c.EmployeeName.toLowerCase().indexOf(keyWord) > -1 || c.EmployeeNPK.toLowerCase().indexOf(keyWord) > -1 ||
+                                    c.EmployeeBranchName.toLowerCase().indexOf(keyWord) > -1})
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map(n => {
                                     return (
@@ -133,8 +134,8 @@ class TableProjParticipant extends Component {
     }
 }
 
-TableProjParticipant.propTypes = {
+Tablestaytune.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(TableProjParticipant);
+export default withStyles(styles)(Tablestaytune);

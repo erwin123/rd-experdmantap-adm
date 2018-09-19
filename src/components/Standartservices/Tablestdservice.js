@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -28,10 +27,9 @@ const styles = theme => ({
 });
 
 const columnData = [
-    { id: 'ProjectName', numeric: false, disablePadding: false, label: 'Project' },
-    { id: 'EmployeeBranchName', numeric: false, disablePadding: false, label: 'Cabang' },
-    { id: 'EmployeeName', numeric: false, disablePadding: false, label: 'Nama' },
-    { id: 'EmployeeNPK', numeric: false, disablePadding: false, label: 'Nomor Induk' },
+    { id: 'ProjectCode', numeric: false, disablePadding: false, label: 'Project' },
+    { id: 'StdServiceDesc', numeric: false, disablePadding: false, label: 'Deskripsi' },
+    { id: 'Roleplay', numeric: false, disablePadding: false, label: 'Posisi' },
 ];
 
 function getSorting(order, orderBy) {
@@ -40,15 +38,14 @@ function getSorting(order, orderBy) {
         : (a, b) => (a[orderBy] < b[orderBy] ? -1 : 1);
 }
 
-class TableProjParticipant extends Component {
+class Tablestdservice extends Component {
     constructor(props) {
         super(props);
         this.state = {
             page: 0,
             rowsPerPage: 10,
             order: 'asc',
-            orderBy: 'EmployeeName',
-            keyWord:''
+            orderBy: 'KdStdservice',
         }
     }
 
@@ -71,38 +68,27 @@ class TableProjParticipant extends Component {
         this.setState({ order, orderBy });
     };
 
-    handleChange(e) {
-        const { name, value } = e.target;
-        this.setState(state => (state[name] = value));
-      }
-
     render() {
         const { classes, data,handleClickRow } = this.props;
-        const { page, rowsPerPage, orderBy, order,keyWord} = this.state;
+        const { page, rowsPerPage, orderBy, order } = this.state;
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
-
         return (
             <Paper className={classes.root}>
-            <br/>
-            <TextField label="Cari Nama/NIK/Cabang" onChange={(e) => this.handleChange(e)} style={{marginLeft:'20px'}}
-            margin="normal" className={classes.textField} name="keyWord" value={keyWord} />
                 <div className={classes.tableWrapper}>
                     <Table className={classes.table}>
                         <TableHeader order={order} orderBy={orderBy} columnData={columnData} onRequestSort={(e) => this.handleRequestSort(e,orderBy)} />
                         <TableBody>
                             {data
                                 .sort(getSorting(order, orderBy))
-                                .filter(c => { return c.EmployeeName.toLowerCase().indexOf(keyWord) > -1 || c.EmployeeNPK.toLowerCase().indexOf(keyWord) > -1 || c.EmployeeBranchName.toLowerCase().indexOf(keyWord) > -1})
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map(n => {
                                     return (
                                         <TableRow  className={classes.tableRow} hover key={n.id} onClick={(e)=>handleClickRow(e, n.id)}>
                                             <TableCell component="th" scope="row">
-                                                {n.ProjectName}
+                                                {n.ProjectCode}
                                             </TableCell>
-                                            <TableCell>{n.EmployeeBranchName}</TableCell>
-                                            <TableCell>{n.EmployeeName}</TableCell>
-                                            <TableCell>{n.EmployeeNPK}</TableCell>
+                                            <TableCell>{n.StdServiceDesc}</TableCell>
+                                            <TableCell>{n.Roledesc}</TableCell>
                                         </TableRow>
                                     );
                                 })}
@@ -133,8 +119,8 @@ class TableProjParticipant extends Component {
     }
 }
 
-TableProjParticipant.propTypes = {
+Tablestdservice.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(TableProjParticipant);
+export default withStyles(styles)(Tablestdservice);

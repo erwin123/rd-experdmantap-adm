@@ -97,14 +97,14 @@ class LoginPage extends Component {
       <div className={classes.root}>
         <Grid container justify="center" alignItems="center" className={classes.gridContainer}>
           <Grid item xs={12} lg={4} md={6} sm={6}>
-              <h2>Login</h2>
+              <h3>Administrative Area</h3>
               <form className={classes.container} noValidate autoComplete="off" onSubmit={(e) => this.handleClick(e)}>
                 <div className={classes.container}>
                   <TextField label="Username" onChange={(e) => this.handleChange(e)} name="username" margin="normal"
                     className={classes.textField} value={username}/>
                   <TextField label="Password" onChange={(e) => this.handleChange(e)} name="password" type="password" margin="normal"
                     className={classes.textField} value={password}/>
-                  <Button variant="contained" size="medium" color="primary" className={classes.button}
+                  <Button variant="outlined" size="medium" color="primary" className={classes.button}
                     onClick={(e) => this.handleClick(e)}>
                     Masuk
                   </Button>
