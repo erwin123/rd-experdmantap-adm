@@ -57,6 +57,7 @@ let menu = [{ text: "Beranda", icon: "home", link: "/home", ic: true },
 { text: "Aspek Fisik", icon: "assignment_ind", link: "/aspek", ic: false },
 { text: "Feedback", icon: "hearing", link: "/feedback", ic: true },
 { text: "Do's n Dont's", icon: "ballot", link: "/s3", ic: true },
+{ text: "Activity", icon: "local_activity", link: "/reportactivity", ic: true },
 { text: "Staytune", icon: "graphic_eq", link: "/staytune", ic: true }]
 
 

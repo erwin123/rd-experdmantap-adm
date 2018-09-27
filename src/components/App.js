@@ -21,6 +21,7 @@ import S3 from './Stepboard/s3';
 import Staytune from './StayTune/Staytune';
 import StandartServicePage from './Standartservices/Stdservices';
 import AspekPage from './Standartservices/Aspek';
+import ReportActivityPage from './Activity/ReportActivity';
 
 class App extends Component {
 
@@ -58,6 +59,7 @@ class App extends Component {
           <PrivateRoute  exact path={routes.STAYTUNE} component={() => <Staytune />} />    
           <PrivateRoute  exact path={routes.STDSERVICE} component={() => <StandartServicePage />} />    
           <PrivateRoute  exact path={routes.ASPEK} component={() => <AspekPage />} />    
+          <PrivateRoute  exact path={routes.ACTIVITY} component={() => <ReportActivityPage />} /> 
         </div>
       </Router>
       </Provider>

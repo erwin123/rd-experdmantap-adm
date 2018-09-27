@@ -14,3 +14,4 @@ export const STAYTUNE = '/staytune';
 export const S3 = '/s3';
 export const STDSERVICE = '/stdservice';
 export const ASPEK = '/aspek';
+export const ACTIVITY = '/reportactivity';
