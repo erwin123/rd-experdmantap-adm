@@ -50,7 +50,7 @@ class TableActivity extends Component {
         super(props);
         this.state = {
             page: 0,
-            rowsPerPage: 10,
+            rowsPerPage: 25,
             order: 'asc',
             orderBy: 'BranchCode',
             keyWord: ""

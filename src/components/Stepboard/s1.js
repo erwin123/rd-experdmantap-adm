@@ -34,9 +34,9 @@ const styles = {
 };
 
 class S1 extends Component {
-    
+
     constructor(props) {
-        
+
         super(props)
         let qs = new URLSearchParams(this.props.location.search);
         this.state = {
@@ -74,8 +74,8 @@ class S1 extends Component {
     fetchDataFeed() {
         let qs = new URLSearchParams(this.props.location.search);
         let param = {
-            BranchCode : qs.get('br'),
-            ProjectCode : qs.get('pr'),
+            BranchCode: qs.get('br'),
+            ProjectCode: qs.get('pr'),
         }
         let urlFeed = "https://api-experdserve.experd.com/api/trx/feed/cr/";
         let localData = JSON.parse(localStorage.getItem('currentUser'));
@@ -98,19 +98,22 @@ class S1 extends Component {
                     <Button size="large" style={{ color: "#fff" }} onClick={() => this.handleClickBack()}>
                         <Icon className={classes.rightIcon}>navigate_before</Icon> Kembali
                     </Button>
-                </div>: null}
-                
+                </div> : null}
+
 
                 <Grid container spacing={0} alignItems="center">
 
                     {feed.length > 0 ? feed.map(i => {
                         return (
-                            <Grid key={i.KdDocument}  item xs={12} sm={12} md={3} lg={3}>
+                            <Grid key={i.KdDocument} item xs={12} sm={12} md={3} lg={3}>
                                 <Card className={classes.card}>
                                     {(() => {
 
                                         switch (i.DocType) {
                                             case 'TW':
+                                                return <embed src={"https://experdserve.experd.com/assets/file/" + i.FileName}
+                                                    width="100%" height="400" alt="pdf" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html" />
+                                            case 'TR':
                                                 return <embed src={"https://experdserve.experd.com/assets/file/" + i.FileName}
                                                     width="100%" height="400" alt="pdf" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html" />
 
@@ -128,11 +131,11 @@ class S1 extends Component {
                                     })()}
 
                                     <CardContent>
-                                        <Typography gutterBottom variant="title">
-                                            {i.CreatedBy} 
+                                        <Typography gutterBottom variant="headline">
+                                            {i.CreatedBy}
                                         </Typography>
-                                        <Typography variant="caption" gutterBottom>
-                                        {i.DocType === 'TW' ? "Talk The Walk" : i.DocType === 'IS' ? "Internship" : "Wakeupcall"}, pada {dt(i.CreatedDate)}
+                                        <Typography variant="caption" gutterBottom style={{ fontSize: "11px", color: "#5e5e5e" }}>
+                                            <span style={{ color: "#fff", background: "#00695f", padding: "4px", borderRadius: "3px" }}>{i.DocType === 'TW' ? "Talk The Walk" : i.DocType === 'IS' ? "Internship" : i.DocType === 'TR' ? "Team Reward":"Wakeupcall"}</span> pada {dt(i.CreatedDate)}
                                         </Typography>
                                         <Typography component="p">
                                             {i.Descriptions}
@@ -221,13 +224,13 @@ class Feedback extends Component {
                             <div style={{ fontSize: "12px", paddingTop: "3px" }}>{j.Feedback}</div>
                         </div>)
                     })}
-                    
+
                 <textarea
                     onChange={e => this.handleChangeComment(e)}
                     value={this.state.newFeedback === null ? "" : this.state.newFeedback}
-                    id={this.props.KdDocument} style={{ width: "98%", marginTop:"5px" }} name={this.props.KdDocument}
+                    id={this.props.KdDocument} style={{ width: "98%", marginTop: "5px" }} name={this.props.KdDocument}
                 />
-                
+
                 <Button onClick={(e) => this.handleClickSubmitComment(e)} variant="contained"
                     style={{ float: "right", marginTop: "5px", marginBottom: "25px" }} size="small" color="primary">
                     Kirim

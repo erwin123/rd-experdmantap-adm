@@ -16,6 +16,7 @@ import FormControl from '@material-ui/core/FormControl';
 import * as join from '../LibJoin/index';
 import { withRouter } from 'react-router-dom';
 import * as routes from '../constants/routes';
+import 'url-search-params-polyfill';
 
 const styles = theme => ({
     root: {
@@ -65,7 +66,8 @@ class ReportActivityPage extends Component {
             dataReport: [],
             selectedProject: "",
             showAlert: false,
-            alertMessage: ""
+            alertMessage: "",
+
         };
     }
 
@@ -111,8 +113,17 @@ class ReportActivityPage extends Component {
             ...this.state, selectedProject: e.target.value
         });
         this.fetchDataReport(e.target.value);
+        this.props.history.push(routes.ACTIVITY+'?pr='+e.target.value)
     }
+
     componentDidMount() {
+        let qs = new URLSearchParams(this.props.location.search);
+        if(qs.get('pr')){
+            this.setState({
+                ...this.state, selectedProject: qs.get('pr')
+            });
+            this.fetchDataReport(qs.get('pr'));
+        }
         this.fetchDataAll();
     }
 
